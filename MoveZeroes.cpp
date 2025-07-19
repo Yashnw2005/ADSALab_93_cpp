@@ -1,3 +1,8 @@
+/*
+Assignment 2:- Implement the problem of moving all zeroes to the end of array.
+Statement: Given an array of random numbers, Push all the zeroes of a
+given array to the end of the array.
+*/
 #include<iostream>
 #include<vector>
 using namespace std;
@@ -53,3 +58,6 @@ int main(){
 
     return 0;
 }
+
+//INPUT:-vector<int> arr = {1,0,2,0,3,0};
+//OUTPUT:-Sorted array: 3 2 1 0 0 0
