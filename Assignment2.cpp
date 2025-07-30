@@ -20,7 +20,7 @@ void merge(vector<int> &arr,int st,int mid,int end){   // Merge function
         }
       }
 
-      while(i<=mid){          // If any elements are left in the right half
+      while(i<=mid){          // If any elements are left in the left half
         temp.push_back(arr[i]);
             i++;
       }
