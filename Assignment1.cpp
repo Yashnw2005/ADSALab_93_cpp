@@ -4,33 +4,72 @@ by all 0s? Find the number of 0s. Count the number of zeroes in the
 given array*/
 
 #include <iostream>
+#include <vector>
 using namespace std;
 
-int countZeroes(int arr[], int n) {
-    int low = 0, high = n - 1;
-    int firstZeroIndex = n;  // assume no 0s
-
-    while (low <= high) {
-        int mid = (low + high) / 2;
-
-        if (arr[mid] == 0) {
-            firstZeroIndex = mid;     // Found a 0, but look for earlier
-            high = mid - 1;
-        } else {
-            low = mid + 1;            // Go right for 0s
-        }
+void merge(vector<int> &arr, int st, int mid, int end)
+{ // Merge function
+  vector<int> temp;
+  int i = st, j = mid + 1;
+  while (i <= mid && j <= end)
+  {
+    if (arr[i] >= arr[j])
+    {
+      temp.push_back(arr[i]);
+      i++;
     }
+    else
+    {
+      temp.push_back(arr[j]);
+      j++;
+    }
+  }
 
-    return n - firstZeroIndex;  // Total 0s = from first 0 to end
+  while (i <= mid)
+  { // If any elements are left in the right half
+    temp.push_back(arr[i]);
+    i++;
+  }
+
+  while (j <= end)
+  { // If any elements are left in the right half
+    temp.push_back(arr[j]);
+    j++;
+  }
+
+  for (int idx = 0; idx < temp.size(); idx++)
+  { // Copy the sorted elements from temp back to the original array
+    arr[st + idx] = temp[idx];
+  }
+}
+void mergeSort(vector<int> &arr, int st, int end)
+{
+  int mid = st + (end - st) / 2;
+  if (st < end)
+  {
+    mergeSort(arr, st, mid);      // left half
+    mergeSort(arr, mid + 1, end); // right half
+
+    merge(arr, st, mid, end);
+  }
 }
 
-int main() {
-    int arr[] = {1, 1, 1, 0, 0};
-    int n = sizeof(arr) / sizeof(arr[0]);
+int main()
+{
+  vector<int> arr = {1, 0, 2, 0, 3, 0};
 
-    cout << "Number of 0s: " << countZeroes(arr, n);
-    return 0;
+  mergeSort(arr, 0, arr.size() - 1);
+
+  cout << "Sorted array: ";
+  for (int val : arr)
+  {
+    cout << val << " ";
+  }
+  cout << endl;
+
+  return 0;
 }
 
 //INPUT:-int arr[] = {1, 1, 1, 0, 0};
 //OUTPUT:-Number of 0s: 2
+
